@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zEBCkMn9uYuFXrS/64E+6aN8XgQ4yIyBi6J6zO9cqYy47ZaaEoLFf0OCO+5EukLodV1j32sgMIMljbz1goq7HA==",
+  "dgSpecHash": "O74a7rAzmusGlLl6SylWB3EOsXhiZSKMa2w7nhAZwTYk3WUMIfWmPWrOP0vSzLX9aUDMga/e4W4Cf9jNkmYgBA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\abdul\\RiderProjects\\Blazor\\AdvancedTodo\\AdvancedTodo.csproj",
+  "projectFilePath": "C:\\Users\\abdul\\RiderProjects\\BlazorRestApi\\AdvancedTodo\\AdvancedTodo.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

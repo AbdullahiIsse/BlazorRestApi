@@ -13,84 +13,84 @@ namespace AdvancedTodo.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\abdul\RiderProjects\Blazor\AdvancedTodo\_Imports.razor"
+#line 1 "C:\Users\abdul\RiderProjects\BlazorRestApi\AdvancedTodo\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\abdul\RiderProjects\Blazor\AdvancedTodo\_Imports.razor"
+#line 2 "C:\Users\abdul\RiderProjects\BlazorRestApi\AdvancedTodo\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\abdul\RiderProjects\Blazor\AdvancedTodo\_Imports.razor"
+#line 3 "C:\Users\abdul\RiderProjects\BlazorRestApi\AdvancedTodo\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\abdul\RiderProjects\Blazor\AdvancedTodo\_Imports.razor"
+#line 4 "C:\Users\abdul\RiderProjects\BlazorRestApi\AdvancedTodo\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\abdul\RiderProjects\Blazor\AdvancedTodo\_Imports.razor"
+#line 5 "C:\Users\abdul\RiderProjects\BlazorRestApi\AdvancedTodo\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\abdul\RiderProjects\Blazor\AdvancedTodo\_Imports.razor"
+#line 6 "C:\Users\abdul\RiderProjects\BlazorRestApi\AdvancedTodo\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\abdul\RiderProjects\Blazor\AdvancedTodo\_Imports.razor"
+#line 7 "C:\Users\abdul\RiderProjects\BlazorRestApi\AdvancedTodo\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\abdul\RiderProjects\Blazor\AdvancedTodo\_Imports.razor"
+#line 8 "C:\Users\abdul\RiderProjects\BlazorRestApi\AdvancedTodo\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\abdul\RiderProjects\Blazor\AdvancedTodo\_Imports.razor"
+#line 9 "C:\Users\abdul\RiderProjects\BlazorRestApi\AdvancedTodo\_Imports.razor"
 using AdvancedTodo;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\abdul\RiderProjects\Blazor\AdvancedTodo\_Imports.razor"
+#line 10 "C:\Users\abdul\RiderProjects\BlazorRestApi\AdvancedTodo\_Imports.razor"
 using AdvancedTodo.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\abdul\RiderProjects\Blazor\AdvancedTodo\Pages\Edit.razor"
+#line 2 "C:\Users\abdul\RiderProjects\BlazorRestApi\AdvancedTodo\Pages\Edit.razor"
 using AdvancedTodo.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\abdul\RiderProjects\Blazor\AdvancedTodo\Pages\Edit.razor"
+#line 3 "C:\Users\abdul\RiderProjects\BlazorRestApi\AdvancedTodo\Pages\Edit.razor"
 using AdvancedTodo.Data;
 
 #line default
@@ -105,7 +105,7 @@ using AdvancedTodo.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 29 "C:\Users\abdul\RiderProjects\Blazor\AdvancedTodo\Pages\Edit.razor"
+#line 29 "C:\Users\abdul\RiderProjects\BlazorRestApi\AdvancedTodo\Pages\Edit.razor"
        
 
     [Parameter]
@@ -115,7 +115,7 @@ using AdvancedTodo.Data;
 
     protected override async Task OnInitializedAsync()
     {
-        todoToEdit = TodoData.Get(Id);
+        todoToEdit = await TodoData.Get(Id);
     }
 
     private void Save()

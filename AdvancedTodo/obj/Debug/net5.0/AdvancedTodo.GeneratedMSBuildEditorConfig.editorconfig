@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = AdvancedTodo
-build_property.ProjectDir = C:\Users\abdul\RiderProjects\Blazor\AdvancedTodo\
+build_property.ProjectDir = C:\Users\abdul\RiderProjects\BlazorRestApi\AdvancedTodo\

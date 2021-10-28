@@ -1,82 +1,105 @@
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using AdvancedTodo.Models;
 
 namespace AdvancedTodo.Data
 {
     public class TodoJsonData : ITodoData
     {
-        private string todoFile = "todos.json";
-        private IList<Todo> todos;
-
-        public TodoJsonData()
+        public async Task<IList<Todo>> GetTodos()
         {
-            if (!File.Exists(todoFile))
+           using HttpClient client = new HttpClient();
+            
+            HttpResponseMessage httpResponseMessage = await client.GetAsync("https://localhost:5008/Todos");
+
+            if (!httpResponseMessage.IsSuccessStatusCode)
             {
-                Seed();
-                WriteTodossToFile();
+                throw new Exception("failed to fetch data");
             }
-            else
+            
+            var readAsStringAsync = await httpResponseMessage.Content.ReadAsStringAsync();
+
+            IList<Todo> todo = JsonSerializer.Deserialize<IList<Todo>>(readAsStringAsync,new JsonSerializerOptions
             {
-                string content = File.ReadAllText(todoFile);
-                todos = JsonSerializer.Deserialize<List<Todo>>(content);
+                PropertyNameCaseInsensitive = true
+            });
+
+
+            return todo;
+        }
+
+        public async void AddTodo(Todo todo)
+        {
+            using HttpClient client = new HttpClient();
+
+            var todoAsJson = JsonSerializer.Serialize(todo);
+
+            HttpContent httpContent = new StringContent(todoAsJson, Encoding.UTF8, "application/json");
+
+
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("https://localhost:5008/Todos", httpContent);
+            
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception("failed to add data");
+            }
+            
+        }
+
+        public async void RemoveTodo(int todoId)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.DeleteAsync($"https://localhost:5008/Todos/{todoId}");
+            
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception("failed to add data");
             }
         }
 
-        private void Seed()
+        public async void Update(Todo todo)
         {
-            Todo[] ts =
+            using HttpClient client = new HttpClient();
+          
+            var todoAsJson = JsonSerializer.Serialize(todo);
+
+            HttpContent httpContent = new StringContent(todoAsJson, Encoding.UTF8, "application/json");
+
+
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"https://localhost:5008/Todos/{todo.TodoId}", httpContent);
+            
+            if (!httpResponseMessage.IsSuccessStatusCode)
             {
-                new Todo {UserId = 1, TodoId = 1, Title = "Do dishes", IsCompleted = false},
-                new Todo {UserId = 1, TodoId = 2, Title = "Walk the dog", IsCompleted = false},
-                new Todo {UserId = 2, TodoId = 3, Title = "Do DNP homework", IsCompleted = true},
-                new Todo {UserId = 3, TodoId = 4, Title = "Eat breakfast", IsCompleted = false},
-                new Todo {UserId = 4, TodoId = 5, Title = "Mow lawn", IsCompleted = true},
-            };
-            todos = ts.ToList();
+                throw new Exception("failed to update data");
+            }
         }
 
-
-        public IList<Todo> GetTodos()
+        public async Task<Todo> Get(int id)
         {
-            List<Todo> tmp = new List<Todo>(todos);
-            return tmp;
+            using HttpClient client = new HttpClient();
+            
+            HttpResponseMessage httpResponseMessage = await client.GetAsync($"https://localhost:5008/Todos/{id}");
+
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception("failed to fetch data");
+            }
+            
+            var readAsStringAsync = await httpResponseMessage.Content.ReadAsStringAsync();
+
+            Todo todo = JsonSerializer.Deserialize<Todo>(readAsStringAsync,new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+
+            return todo;
         }
 
-        public void AddTodo(Todo todo)
-        {
-            int max = todos.Max(todo => todo.TodoId);
-            todo.TodoId = (++max);
-            todos.Add(todo);
-            WriteTodossToFile();
-        }
-
-        public void RemoveTodo(int todoId)
-        {
-            Todo toRemove = todos.First(t => t.TodoId == todoId);
-            todos.Remove(toRemove);
-            WriteTodossToFile();
-        }
-
-        public void Update(Todo todo)
-        {
-            Todo toUpdate = todos.First(t => t.TodoId == todo.TodoId);
-            toUpdate.IsCompleted = todo.IsCompleted;
-            toUpdate.Title = todo.Title;
-            WriteTodossToFile();
-        }
-
-        public Todo Get(int id)
-        {
-            return todos.FirstOrDefault(t => t.TodoId == id);
-        }
-
-        private void WriteTodossToFile()
-        {
-            string todosAsJson = JsonSerializer.Serialize(todos);
-            File.WriteAllText(todoFile, todosAsJson);
-        }
+       
     }
 }

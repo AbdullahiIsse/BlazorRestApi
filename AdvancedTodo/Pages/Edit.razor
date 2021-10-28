@@ -35,7 +35,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        todoToEdit = TodoData.Get(Id);
+        todoToEdit = await TodoData.Get(Id);
     }
 
     private void Save()

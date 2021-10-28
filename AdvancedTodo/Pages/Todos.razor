@@ -80,7 +80,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        allTodos = _todoData.GetTodos();
+        allTodos = await _todoData.GetTodos();
         todosToShow = allTodos;
     }
 
